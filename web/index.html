@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <title>Ro'yxatdan o'tish</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #4e54c8, #8f94fb);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background: white;
+            padding: 25px;
+            width: 100%;
+            max-width: 350px;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        input, button {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 12px;
+            font-size: 16px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            background: #4e54c8;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #3b40a4;
+        }
+
+        .text {
+            text-align: center;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>Ro'yxatdan o'tish</h2>
+
+    <input id="name" type="text" placeholder="Ismingiz">
+    <input id="email" type="email" placeholder="Email">
+    
+    <div style="position: relative;">
+        <input id="password" type="password" placeholder="Parol">
+        <span id="toggle" style="position:absolute; right:10px; top:12px; cursor:pointer;">👁️</span>
+    </div>
+
+    <button onclick="register()">Ro'yxatdan o'tish</button>
+
+    <div class="text">
+        Allaqachon akkauntingiz bormi? <a href="login.html">Kirish</a>
+    </div>
+</div>
+
+<script>
+const toggle = document.getElementById("toggle");
+const password = document.getElementById("password");
+
+toggle.onclick = function() {
+    if(password.type === "password") {
+        password.type = "text";
+        toggle.textContent = "🙈";
+    } else {
+        password.type = "password";
+        toggle.textContent = "👁️";
+    }
+};
+
+function register() {
+    let name = document.getElementById("name").value;
+    let email = document.getElementById("email").value;
+    let pass = password.value;
+
+    if(!name || !email || !pass) {
+        alert("Hamma maydonni to‘ldiring ❗");
+        return;
+    }
+
+    // Ma’lumotlarni saqlash
+    localStorage.setItem("name", name);
+    localStorage.setItem("email", email);
+    localStorage.setItem("password", pass);
+
+    alert("Ro'yxatdan o'tish saqlandi ✅");
+
+    // ✅ Avtomatik shop.html ga yo‘naltirish
+    window.location.href = "shop.html";
+}
+</script>
+
+</body>
+</html>

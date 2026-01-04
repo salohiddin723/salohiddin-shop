@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<title>Savat</title>
+<style>
+    body {
+        margin: 0;
+        font-family: Arial;
+        background: #f4f4f4;
+    }
+
+    header {
+        background: #4e54c8;
+        color: white;
+        padding: 15px;
+        text-align: center;
+        position: relative;
+    }
+
+    #back {
+        position: absolute;
+        left: 15px;
+        top: 15px;
+        background: #38ef7d;
+        border: none;
+        padding: 8px 12px;
+        cursor: pointer;
+        border-radius: 6px;
+    }
+
+    table {
+        width: 90%;
+        max-width: 600px;
+        margin: 20px auto;
+        border-collapse: collapse;
+        background: white;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    th, td {
+        padding: 12px;
+        border-bottom: 1px solid #ddd;
+        text-align: center;
+    }
+
+    th {
+        background: #4e54c8;
+        color: white;
+    }
+
+    button {
+        padding: 6px 12px;
+        background: #ff4d4d;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+    }
+
+    #total {
+        text-align: center;
+        font-size: 18px;
+        margin: 20px;
+    }
+
+</style>
+</head>
+<body>
+
+<header>
+    <h1>Savat</h1>
+    <button id="back" onclick="goBack()">⬅️ Orqaga</button>
+</header>
+
+<table id="cartTable">
+    <tr>
+        <th>Mahsulot</th>
+        <th>Narx (so'm)</th>
+        <th>O‘chirish</th>
+    </tr>
+</table>
+
+<div id="total">Jami: 0 so'm</div>
+
+<script>
+// Login tekshiruv
+if(!localStorage.getItem("email")) {
+    alert("Iltimos, avval login qiling!");
+    window.location.href = "index.html";
+}
+
+// Mahsulotlarni chiqarish
+let cart = JSON.parse(localStorage.getItem("cart") || "[]");
+const cartTable = document.getElementById("cartTable");
+const totalDiv = document.getElementById("total");
+
+function renderCart() {
+    // Avvalgi qatorlarni tozalash
+    cartTable.innerHTML = `
+        <tr>
+            <th>Mahsulot</th>
+            <th>Narx (so'm)</th>
+            <th>O‘chirish</th>
+        </tr>
+    `;
+
+    let total = 0;
+
+    cart.forEach((item, index) => {
+        total += item.price;
+        const row = cartTable.insertRow();
+        row.innerHTML = `
+            <td>${item.name}</td>
+            <td>${item.price}</td>
+            <td><button onclick="removeItem(${index})">❌</button></td>
+        `;
+    });
+
+    totalDiv.textContent = `Jami: ${total} so'm`;
+}
+
+function removeItem(index) {
+    cart.splice(index, 1);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    renderCart();
+}
+
+function goBack() {
+    window.location.href = "shop.html";
+}
+
+// Sahifa yuklanganda render qil
+renderCart();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <title>Kirish</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+            background: linear-gradient(135deg, #11998e, #38ef7d);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background: white;
+            padding: 25px;
+            width: 100%;
+            max-width: 350px;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        input, button {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 12px;
+            font-size: 16px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            background: #11998e;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0e7b6f;
+        }
+
+        .text {
+            text-align: center;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>Kirish</h2>
+
+    <input id="email" type="email" placeholder="Email">
+    <div style="position: relative;">
+        <input id="password" type="password" placeholder="Parol">
+        <span id="toggle" style="position:absolute; right:10px; top:12px; cursor:pointer;">👁️</span>
+    </div>
+
+    <button onclick="login()">Kirish</button>
+
+    <div class="text">
+        Akkauntingiz yo‘qmi? <a href="index.html">Ro'yxatdan o'tish</a>
+        <br>
+        <a href="#" onclick="logout()">Logout</a>
+    </div>
+</div>
+
+<script>
+const toggle = document.getElementById("toggle");
+const password = document.getElementById("password");
+
+toggle.onclick = function() {
+    if(password.type === "password") {
+        password.type = "text";
+        toggle.textContent = "🙈";
+    } else {
+        password.type = "password";
+        toggle.textContent = "👁️";
+    }
+};
+
+function login() {
+    let email = document.getElementById("email").value;
+    let pass = password.value;
+
+    let savedEmail = localStorage.getItem("email");
+    let savedPass = localStorage.getItem("password");
+
+    if(email === savedEmail && pass === savedPass) {
+        alert("Kirish muvaffaqiyatli ✅\nXush kelibsiz " + localStorage.getItem("name"));
+    } else {
+        alert("Email yoki parol xato ❌");
+    }
+}
+
+function logout() {
+    localStorage.clear();
+    alert("Logout ✅ barcha ma’lumot o‘chirildi");
+    window.location.href = "index.html";
+}
+</script>
+
+</body>
+</html>
